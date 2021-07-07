@@ -1,5 +1,6 @@
 const querystring = require('querystring')
 const {setRedis, getRedis} = require('./src/db/redis')
+const {access} = require('./src/utils/log')
 
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
@@ -39,6 +40,7 @@ const getCookieExpires = () => {
 }
 
 const serverHandle = (req, res) => {
+  access(`${Date()} -- ${req.method} -- ${req.url} -- ${req.headers['user-agent']}`)
   // 设置返回格式 JSON
   res.setHeader('Content-type', 'application-json')
 
